@@ -5,8 +5,10 @@
   "description": "Display TCGplayer prices for Magic the Gathering (MTG) cards on the Wizards Gatherer page.",
   "version": "1.0",
 
+  "permissions": ["tabs"],
+
   //TODO: change to page_action
-  "browser_action": {
+  "page_action": {
     "default_icon": "icon.png",
     "default_title": "Gatherer Price",
     "default_popup": "popup.html"
