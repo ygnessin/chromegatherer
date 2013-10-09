@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+
+  "name": "Gatherer Price",
+  "description": "Display TCGplayer prices for Magic the Gathering (MTG) cards on the Wizards Gatherer page.",
+  "version": "1.0",
+
+  //TODO: change to page_action
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "Gatherer Price",
+    "default_popup": "popup.html"
+  },
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "content_scripts": [ 
+    {
+      "matches": ["http://gatherer.wizards.com/Pages/Card/*"],
+      "css": ["style.css"],
+      "js": ["jquery.js", "content.js"]
+    }
+  ]
+}
