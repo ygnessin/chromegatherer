@@ -18,6 +18,19 @@ $(document).ready(function() {
   {
     $(".leftCol").append("<div>" + id + "</div>");
   }
+
+  // send message to the extension containing the card ID and Name
+  chrome.runtime.sendMessage(
+  {
+    cardinfo: 
+    {
+      cardname: name, 
+      cardid: id
+    }
+  }, function(response) {
+    // do stuff?
+  });
+
 })
 
 function getURLParameter(name) {

@@ -1,17 +1,25 @@
 <!doctype html>
 <html>
   <head>
-    <title>Popup</title>
+    <title>Gatherer Price</title>
     <link href="popup.css" rel="stylesheet" type="text/css">
   </head>
   <body>
     <script src="jquery.js"></script>
     <script src="popup.js"></script>
-    <div class="header">
-        Gatherer Price
+    <div id="cardinfo">
+      <!-- this gets populated by JS -->
+      <div id="cardname"></div>
+      <div id="cardid"></div>
     </div>
-    <div>
-        &copy 2013 <a href="https://github.com/ygnessin">ygnessin</a>
+    <div id="footer">
+      <div class="appname">
+        Gatherer Price
+      </div>
+      <div>
+        &copy 2013
+        <a href="https://github.com/ygnessin">ygnessin</a>
+      </div>
     </div>
   </body>
 </html>

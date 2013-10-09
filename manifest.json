@@ -7,7 +7,6 @@
 
   "permissions": ["tabs"],
 
-  //TODO: change to page_action
   "page_action": {
     "default_icon": "icon.png",
     "default_title": "Gatherer Price",

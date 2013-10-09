@@ -1,6 +1,6 @@
 body {
   font-family: Trebuchet MS;
-  width: 120px;
+  width: 256px;
 }
 
 a {
@@ -9,12 +9,12 @@ a {
   color: #2222dd;
 }
 
-div {
+div#footer {
   text-align: center;
   margin: 5px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
-div.header {
+div#footer.appname {
   font-weight: bold;
 }
