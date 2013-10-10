@@ -1,23 +1,16 @@
 $(document).ready(function() {
 
-  // var name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow.value").toString();
-
+  var name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow > .value").text();
+  var set  = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_setRow > .value").text();
+  
   // get multiverse ID from HTTP params
-  var id = getURLParameter("multiverseid");
+  // var id = getURLParameter("multiverseid");
 
   // get card name from HTTP params
-  var name = getURLParameter("name");
+  // var name = getURLParameter("name");
 
-  // print the name or ID under the card, prioritizing ID
-  // TODO: replace this with TCGplayer info
-  if (id == "null") 
-  {
-    $(".leftCol").append("<div>" + name + "</div>");
-  } 
-  else 
-  {
-    $(".leftCol").append("<div>" + id + "</div>");
-  }
+  $(".leftCol").append("<div>" + name + "</div>");
+  $(".leftCol").append("<div>" + set + "</div>");
 
   // send message to the extension containing the card ID and Name
   chrome.runtime.sendMessage(
@@ -25,7 +18,7 @@ $(document).ready(function() {
     cardinfo: 
     {
       cardname: name, 
-      cardid: id
+      cardset:  set
     }
   }, function(response) {
     // do stuff?
@@ -34,7 +27,7 @@ $(document).ready(function() {
 })
 
 function getURLParameter(name) {
-    return decodeURI(
-        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
-    );
+  return decodeURI(
+    (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+  );
 }

@@ -7,9 +7,9 @@ $(document).ready(function(){
   });
 
   var name = chrome.extension.getBackgroundPage().name;
-  var id = chrome.extension.getBackgroundPage().id;
-
+  var set = chrome.extension.getBackgroundPage().set;
+  
   $("#cardname").append("Name: " + name)
-  $("#cardid").append("ID: " + id)
+  $("#cardset").append("Set: " + set)
 
 });

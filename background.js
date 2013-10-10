@@ -1,6 +1,6 @@
-// global accessors for card name and ID
-var name = "null"
-var id = "null"
+// global accessors for card name and set
+var name = "null";
+var set  = "null";
 
 // Called when the url of a tab changes.
 function checkForValidUrl(tabId, changeInfo, tab) {
@@ -21,6 +21,6 @@ chrome.runtime.onMessage.addListener(
     if (request.cardinfo)
     {
       name = request.cardinfo.cardname;
-      id = request.cardinfo.cardid;
+      set  = request.cardinfo.cardset;
     }
 });
