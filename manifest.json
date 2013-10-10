@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "Gatherer Price",
+  "name": "Gatherer Prices",
   "description": "Display TCGplayer prices for Magic the Gathering (MTG) cards on the Wizards Gatherer page.",
   "version": "1.0",
 
