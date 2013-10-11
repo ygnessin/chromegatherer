@@ -9,7 +9,7 @@
 
   "page_action": {
     "default_icon": "default_icon.png",
-    "default_title": "Gatherer Price",
+    "default_title": "Price Gatherer",
     "default_popup": "popup.html"
   },
 
