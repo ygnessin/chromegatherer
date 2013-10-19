@@ -9,9 +9,16 @@
     "tabs",
     "http://partner.tcgplayer.com/"
   ],
+  
+  "icons": {
+    "128": "images/icon_128.png",
+    "96": "images/icon_96.png",
+    "48": "images/icon_48.png",
+    "16": "images/icon_16.png"
+  },
 
   "page_action": {
-    "default_icon": "default_icon.png",
+    "default_icon": "images/default_icon.png",
     "default_title": "Price Gatherer",
     "default_popup": "popup.html"
   },

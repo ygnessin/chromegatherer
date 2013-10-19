@@ -1,3 +1,32 @@
 .space {
+  position: relative;
   height: 17px;
+}
+
+.price {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#hiprice {
+  width: 76px;
+  float: left;
+  background-color: #D9FCD1;
+}
+
+#avgprice {
+  width: 77px;
+  float: left;
+  background-color: #D1DFFC;
+}
+
+#lowprice {
+  width: 76px;
+  float: right;
+  background-color: #FCD1D1;
+}
+
+#foilavgprice {
+  background-color: #F8F59A;
 }

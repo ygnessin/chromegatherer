@@ -25,7 +25,7 @@ $(document).ready(function() {
   set_map['Planechase 2012 Edition'] = 'Planechase 2012'
   set_map['Magic: The Gathering-Commander'] = 'Commander'
   set_map['Magic: The Gathering-Commander 2013'] = 'Commander 2013'
-
+  set_map['Ravnica: City of Guilds'] = 'Ravnica'
 
   if (set_map[set] != undefined) { set = set_map[set] };
 
@@ -40,23 +40,29 @@ $(document).ready(function() {
   var url = "http://partner.tcgplayer.com/x3/phl.asmx/p?pk=" + pk + "&s=" + set + "&p=" + name
   $.get( url, function( xml ) {
     // TODO: handle bad GET requests (request without set, print with italics)
-    hiprice = $(xml).find("hiprice").text();
-    lowprice = $(xml).find("lowprice").text();
-    avgprice = $(xml).find("avgprice").text();
-    foilavgprice = $(xml).find("foilavgprice").text();
-    storelink = $(xml).find("link").text();
+    hiprice = "$" + $(xml).find("hiprice").text();
+    lowprice = "$" + $(xml).find("lowprice").text();
+    avgprice = "$" + $(xml).find("avgprice").text();
+    foilavgprice = "$" + $(xml).find("foilavgprice").text();
+    storelink = "$" + $(xml).find("link").text();
 
-    if (hiprice == "0") { hiprice = "Unavailable" };
-    if (lowprice == "0") { lowprice = "Unavailable" };
-    if (avgprice == "0") { avgprice = "Unavailable" };
-    if (foilavgprice == "0") { foilavgprice = "N/A" };
+    if (hiprice == "$0") { hiprice = "Unavailable" };
+    if (lowprice == "$0") { lowprice = "Unavailable" };
+    if (avgprice == "$0") { avgprice = "Unavailable" };
+    if (foilavgprice == "$0") { foilavgprice = "N/A" };
 
     // Add the prices to the page
     $(".leftCol").append('<div class="space"</div>'); //so I don't interfere with variations div
-    $(".leftCol").append('<div class="price" id="hiprice">H: ' + hiprice + '</div>');
-    $(".leftCol").append('<div class="price" id="avgprice">M: ' + avgprice + '</div>');
-    $(".leftCol").append('<div class="price" id="lowprice">L: ' + lowprice + '</div>');
-    $(".leftCol").append('<div class="price" id="foilavgprice">Foil M: ' + foilavgprice + '</div>');
+    $(".leftCol").append(
+      '<div class="price">' +
+        '<div id="himidlow">' +
+          '<div id="hiprice">H: ' + hiprice + '</div>' +
+          '<div id="avgprice">M: ' + avgprice + '</div>' +
+          '<div id="lowprice">L: ' + lowprice + '</div>' +
+        '</div>' +
+        '<div id="foilavgprice">Foil M: ' + foilavgprice + '</div>' +
+      '</div>'
+    );
   });
 
   // send message to the extension containing the card ID and Name
