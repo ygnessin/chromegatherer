@@ -10,23 +10,36 @@
 }
 
 #hiprice {
+  background-color: #D9FCD1;
   width: 76px;
   float: left;
-  background-color: #D9FCD1;
 }
 
 #avgprice {
+  background-color: #D1DFFC;
   width: 77px;
   float: left;
-  background-color: #D1DFFC;
 }
 
 #lowprice {
+  background-color: #FCD1D1;
   width: 76px;
   float: right;
-  background-color: #FCD1D1;
 }
 
 #foilavgprice {
   background-color: #F8F59A;
+  margin-top: 18px;
+}
+
+#error {
+  color: #C00;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 18px;
+}
+
+#footnote {
+  margin-top: 10px;
+  font-size: 10px;
 }

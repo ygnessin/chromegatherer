@@ -35,36 +35,24 @@ $(document).ready(function() {
     if (typeof(year) == "string") { set = "Magic 20" + year + " (M" + year + ")";};
   };
 
+  // Append the price div to the left column
+  var price_div = $('<div class=price></div>')
+  $(".leftCol").append(price_div);
+  
+  // Prepare variables needed for API query
+  var pk = "GATHERPRICES";
+  var all_sets = false;
+  var url = "http://partner.tcgplayer.com/x3/phl.asmx/p?pk=" + pk + "&s=" + set + "&p=" + name;
+  
   // Query TCGplayer's API
-  var pk = "GATHERPRICES"
-  var url = "http://partner.tcgplayer.com/x3/phl.asmx/p?pk=" + pk + "&s=" + set + "&p=" + name
-  $.get( url, function( xml ) {
-    // TODO: handle bad GET requests (request without set, print with italics)
-    hiprice = "$" + $(xml).find("hiprice").text();
-    lowprice = "$" + $(xml).find("lowprice").text();
-    avgprice = "$" + $(xml).find("avgprice").text();
-    foilavgprice = "$" + $(xml).find("foilavgprice").text();
-    storelink = "$" + $(xml).find("link").text();
-
-    if (hiprice == "$0") { hiprice = "Unavailable" };
-    if (lowprice == "$0") { lowprice = "Unavailable" };
-    if (avgprice == "$0") { avgprice = "Unavailable" };
-    if (foilavgprice == "$0") { foilavgprice = "N/A" };
-
-    // Add the prices to the page
-    $(".leftCol").append('<div class="space"</div>'); //so I don't interfere with variations div
-    $(".leftCol").append(
-      '<div class="price">' +
-        '<div id="himidlow">' +
-          '<div id="hiprice">H: ' + hiprice + '</div>' +
-          '<div id="avgprice">M: ' + avgprice + '</div>' +
-          '<div id="lowprice">L: ' + lowprice + '</div>' +
-        '</div>' +
-        '<div id="foilavgprice">Foil M: ' + foilavgprice + '</div>' +
-      '</div>'
-    );
+  $.get( url, handleAPIResult ).fail( function() {
+    // If failed, try again, but without Set name (gives average for all sets)
+    url = "http://partner.tcgplayer.com/x3/phl.asmx/p?pk=" + pk + "&s=&p=" + name
+    $.get( url, reportAllSets ).fail( function() {
+      $(".leftCol").append('<div id="error">Sorry, an error occured fetching price data</div>');
+    });
   });
-
+  
   // send message to the extension containing the card ID and Name
   chrome.runtime.sendMessage(
   {
@@ -79,8 +67,31 @@ $(document).ready(function() {
 
 })
 
-function getURLParameter(name) {
-  return decodeURI(
-    (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+function handleAPIResult( xml ) {  
+  hiprice = "$" + $(xml).find("hiprice").text();
+  lowprice = "$" + $(xml).find("lowprice").text();
+  avgprice = "$" + $(xml).find("avgprice").text();
+  foilavgprice = "$" + $(xml).find("foilavgprice").text();
+  storelink = "$" + $(xml).find("link").text();
+
+  if (hiprice == "$0") { hiprice = "Unavailable" };
+  if (lowprice == "$0") { lowprice = "Unavailable" };
+  if (avgprice == "$0") { avgprice = "Unavailable" };
+  if (foilavgprice == "$0") { foilavgprice = "N/A" };
+
+  // Add the price data to the price div on the page
+  $('.price').append(
+    '<div id="himidlow">' +
+      '<div id="hiprice">H: ' + hiprice + '</div>' +
+      '<div id="avgprice">M: ' + avgprice + '</div>' +
+      '<div id="lowprice">L: ' + lowprice + '</div>' +
+    '</div>' +
+    '<div id="foilavgprice">Foil M: ' + foilavgprice + '</div>'
   );
 }
+
+function reportAllSets( xml ) {
+  $('.price').css('font-style', 'italic')
+  $('.leftCol').append('<div id="footnote">Pricing for this printing is unavailable. These prices are aggregated over all available printings.');
+  handleAPIResult(xml);
+};
