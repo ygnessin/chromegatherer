@@ -42,4 +42,9 @@
 #footnote {
   margin-top: 10px;
   font-size: 10px;
+  color: blue;
+}
+
+#footnote:hover {
+  cursor: pointer;
 }

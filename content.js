@@ -92,6 +92,6 @@ function handleAPIResult( xml ) {
 
 function reportAllSets( xml ) {
   $('.price').css('font-style', 'italic')
-  $('.leftCol').append('<div id="footnote">Pricing for this printing is unavailable. These prices are aggregated over all available printings.');
+  $('.leftCol').append('<div id="footnote" href="" title="These prices are aggregated over all available printings of this card, because the printing you selected does not have any available pricing data. Perhaps you selected a Masters Edition, Promo, or other unusual printing.">Why are the prices in italics?</div>');
   handleAPIResult(xml);
 };
