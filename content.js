@@ -5,11 +5,11 @@ var set = null;
 $(document).ready(function() {
 
   // get card name from page text
-  name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow > .value").text();
-  name = $.trim(name);
+  var name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow > .value")
+  name = $.trim(name.text());
   // get card set from page text
-  set  = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_setRow > .value").text();
-  set = $.trim(set);
+  var set  = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_setRow > .value")
+  set = $.trim(set.text());
 
   // set null variables
   var hiprice = null;
