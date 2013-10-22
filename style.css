@@ -48,3 +48,16 @@
 #footnote:hover {
   cursor: pointer;
 }
+
+.price a {
+  color: black;
+}
+
+.price a:visited {
+  color: black;
+}
+
+#storelink {
+  font-size: 14px;
+  margin-top: 7px;
+}
