@@ -5,11 +5,20 @@ var set = null;
 $(document).ready(function() {
 
   // get card name from page text
-  var name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow > .value")
+  var name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow > .value");
   name = $.trim(name.text());
+  
   // get card set from page text
-  var set  = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_setRow > .value")
+  var set = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_setRow > .value");
   set = $.trim(set.text());
+  
+  // Handle double-sided cards from Innistrad block
+  if (name.length == 0) {
+    name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl07_nameRow > .value");
+    name = $.trim(name.text());
+    set = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl07_setRow > .value");
+    set = $.trim(set.text());
+  }
 
   // set null variables
   var hiprice = null;
