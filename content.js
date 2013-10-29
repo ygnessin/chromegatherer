@@ -27,7 +27,7 @@ $(document).ready(function() {
   set_map['Limited Edition Alpha'] = 'Alpha Edition';
   set_map['Limited Edition Beta'] = 'Beta Edition';
   set_map['Seventh Edition'] = '7th Edition';
-  set_map['Eigth Edition'] = '8th Edition';
+  set_map['Eighth Edition'] = '8th Edition';
   set_map['Ninth Edition'] = '9th Edition';
   set_map['Tenth Edition'] = '10th Edition';
   set_map['Planechase 2012 Edition'] = 'Planechase 2012';
