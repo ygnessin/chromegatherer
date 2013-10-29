@@ -1,13 +1,8 @@
-// initialize global variables
-var name = null;
-var set = null;
-
 $(document).ready(function() {
-
   // get card name from page text
   var name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow > .value");
   name = $.trim(name.text());
-  
+    
   // get card set from page text
   var set = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_setRow > .value");
   set = $.trim(set.text());
@@ -53,8 +48,7 @@ $(document).ready(function() {
   $(".leftCol").append(price_div);
 
   // Prepare variables needed for API query
-  var pk = "GATHERPRICES";
-  var all_sets = false;
+  var pk = "GATHPRICE";
   var url = "http://partner.tcgplayer.com/x3/phl.asmx/p?pk=" + pk + "&s=" + set + "&p=" + name;
 
   // Query TCGplayer's Hi-Mid-Low API
