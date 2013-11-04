@@ -32,8 +32,9 @@ $(document).ready(function() {
   set_map['Tenth Edition'] = '10th Edition';
   set_map['Planechase 2012 Edition'] = 'Planechase 2012';
   set_map['Magic: The Gathering-Commander'] = 'Commander';
-  set_map['Magic: The Gathering-Commander 2013'] = 'Commander 2013';
+  set_map['Commander 2013 Edition'] = 'Commander 2013';
   set_map['Ravnica: City of Guilds'] = 'Ravnica';
+  set_map['Time Spiral "Timeshifted"'] = 'Time Spiral';
 
   if (set_map[set] != undefined) { set = set_map[set] };
 
