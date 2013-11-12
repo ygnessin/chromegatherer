@@ -3,7 +3,7 @@
 
   "name": "MTG Price Gatherer",
   "description": "Add TCGplayer prices for Magic the Gathering (MTG) cards to the Wizards Gatherer page.",
-  "version": "1.0.3",
+  "version": "1.0.4",
 
   "permissions": [
     "tabs",
