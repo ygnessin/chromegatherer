@@ -1,15 +1,35 @@
-// initialize global variables
-var name = null;
-var set = null;
+var two_cards = false;
 
 $(document).ready(function() {
-
   // get card name from page text
-  var name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow > .value")
-  name = $.trim(name.text());
+  var name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow > .value");
+    
   // get card set from page text
-  var set  = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_setRow > .value")
+  var set = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_setRow > .value");
+  
+  // Handle double-sided cards and split cards
+  var second_name = '';
+  if ( name.text().length == 0 ) {
+    two_cards = true;
+    name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl07_nameRow > .value");
+    set = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl07_setRow > .value");
+    
+    // Set up Split card names in case this is a Split card
+    second_name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl08_nameRow > .value");
+    // Sometimes split cards use ct109 and ct110
+    if ( name.text().length == 0 ) {
+      name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl09_nameRow > .value");
+      set = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl09_setRow > .value");
+      second_name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl10_nameRow > .value");
+    }
+    second_name = $.trim(second_name.text());
+  }
+  
+  name = $.trim(name.text());
   set = $.trim(set.text());
+    
+  var split_name_1 = name + '+%2f%2f+' + second_name
+  var split_name_2 = second_name + '+%2f%2f+' + name
 
   // set null variables
   var hiprice = null;
@@ -23,18 +43,19 @@ $(document).ready(function() {
   set_map['Limited Edition Alpha'] = 'Alpha Edition';
   set_map['Limited Edition Beta'] = 'Beta Edition';
   set_map['Seventh Edition'] = '7th Edition';
-  set_map['Eigth Edition'] = '8th Edition';
+  set_map['Eighth Edition'] = '8th Edition';
   set_map['Ninth Edition'] = '9th Edition';
   set_map['Tenth Edition'] = '10th Edition';
   set_map['Planechase 2012 Edition'] = 'Planechase 2012';
   set_map['Magic: The Gathering-Commander'] = 'Commander';
-  set_map['Magic: The Gathering-Commander 2013'] = 'Commander 2013';
+  set_map['Commander 2013 Edition'] = 'Commander 2013';
   set_map['Ravnica: City of Guilds'] = 'Ravnica';
+  set_map['Time Spiral "Timeshifted"'] = 'Time Spiral';
 
   if (set_map[set] != undefined) { set = set_map[set] };
 
   m = set.match(/Magic 20(\d\d)/);
-  if (m != null) {
+  if ( m != null ) {
     year = m[1];
     if (typeof(year) == "string") { set = "Magic 20" + year + " (M" + year + ")";};
   };
@@ -42,18 +63,26 @@ $(document).ready(function() {
   // Append the price div to the left column
   var price_div = $('<div class=price></div>')
   $(".leftCol").append(price_div);
-
+  
   // Prepare variables needed for API query
-  var pk = "GATHERPRICES";
-  var all_sets = false;
+  var pk = "GATHPRICE";
   var url = "http://partner.tcgplayer.com/x3/phl.asmx/p?pk=" + pk + "&s=" + set + "&p=" + name;
-
+  
   // Query TCGplayer's Hi-Mid-Low API
   $.get( url, handleAPIResult ).fail( function() {
     // If failed, try again, but without Set name (gives average for all sets)
     url = "http://partner.tcgplayer.com/x3/phl.asmx/p?pk=" + pk + "&s=&p=" + name;
     $.get( url, reportAllSets ).fail( function() {
-      $(".leftCol").append('<div id="error">Sorry, an error occured fetching price data</div>');
+      // If failed, maybe it's a Split card
+      url = "http://partner.tcgplayer.com/x3/phl.asmx/p?pk=" + pk + "&s=" + set + "&p=" + split_name_1;
+      $.get( url, handleAPIResult ).fail( function() {
+        // If failed, maybe the split card names are backwards
+        url = "http://partner.tcgplayer.com/x3/phl.asmx/p?pk=" + pk + "&s=" + set + "&p=" + split_name_2;
+        $.get( url, handleAPIResult ).fail( function() {
+          // If still failed, give up and print an error
+          $(".leftCol").append('<div id="error">Sorry, an error occured fetching price data</div>');
+        });
+      });
     });
   });
 
@@ -86,12 +115,14 @@ function handleAPIResult( xml ) {
   // Add the price data to the price div on the page
   $('.price').append(
     '<div id="himidlow">' +
-      '<div id="hiprice"><a href="' + storelink + '">H: ' + hiprice + '</a></div>' +
-      '<div id="avgprice"><a href="' + storelink + '">M: ' + avgprice + '</a></div>' +
-      '<div id="lowprice"><a href="' + storelink + '">L: ' + lowprice + '</a></div>' +
+      '<div class="hiprice"><a href="' + storelink + '">H: ' + hiprice + '</a></div>' +
+      '<div class="avgprice"><a href="' + storelink + '">M: ' + avgprice + '</a></div>' +
+      '<div class="lowprice"><a href="' + storelink + '">L: ' + lowprice + '</a></div>' +
     '</div>' +
-    '<div id="foilavgprice"><a href="' + storelink + '">Foil M: ' + foilavgprice + '</a></div>'
+    '<div class="foilavgprice"><a href="' + storelink + '">Foil M: ' + foilavgprice + '</a></div>'
   );
+  // Fix CSS for split cards and double-sided cards
+  if ( two_cards ) { splitCSS() };
   // Add store link
   // $('.leftCol').append(
   //   '<div id="storelink"><a href="' + storelink +'">Buy ' + name + '</div></a>'
@@ -101,8 +132,14 @@ function handleAPIResult( xml ) {
 function reportAllSets( xml ) {
   handleAPIResult(xml);
   $('.price').css('font-style', 'italic')
-  var footnote_msg = 'These prices are aggregated over all available printings of this card, because the printing you selected does not have any available pricing data. Perhaps you selected a Masters Edition, Promo, or other unusual printing.';
+  var footnote_msg = 'These prices are aggregated over all available printings of this card, because the printing you selected does not have any available pricing data.';
   var footnote = $('<div id="footnote" title="' + footnote_msg + '">Why are the prices in italics?</div>');
   $('.leftCol').append(footnote);
   $(footnote).click( function() { alert(footnote_msg) } );
 };
+
+function splitCSS() {
+  $(".hiprice").css("width", 107);
+  $(".avgprice").css("width", 106);
+  $(".lowprice").css("width", 107);
+}

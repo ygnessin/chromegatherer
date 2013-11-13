@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Price Gatherer",
-  "description": "Display TCGplayer prices for Magic the Gathering (MTG) cards on the Wizards Gatherer page.",
-  "version": "1.0",
+  "name": "MTG Price Gatherer",
+  "description": "Adds Magic: the Gathering card prices to Wizards' Gatherer page.",
+  "version": "1.0.5",
 
   "permissions": [
     "tabs",
