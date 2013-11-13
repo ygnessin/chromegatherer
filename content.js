@@ -1,19 +1,16 @@
-var two_cards = false;
-
 $(document).ready(function() {
   // get card name from page text
   var name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_nameRow > .value");
-    
+
   // get card set from page text
   var set = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_setRow > .value");
-  
+
   // Handle double-sided cards and split cards
   var second_name = '';
   if ( name.text().length == 0 ) {
-    two_cards = true;
     name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl07_nameRow > .value");
     set = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl07_setRow > .value");
-    
+
     // Set up Split card names in case this is a Split card
     second_name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl08_nameRow > .value");
     // Sometimes split cards use ct109 and ct110
@@ -24,10 +21,10 @@ $(document).ready(function() {
     }
     second_name = $.trim(second_name.text());
   }
-  
+
   name = $.trim(name.text());
   set = $.trim(set.text());
-    
+
   var split_name_1 = name + '+%2f%2f+' + second_name
   var split_name_2 = second_name + '+%2f%2f+' + name
 
@@ -63,11 +60,11 @@ $(document).ready(function() {
   // Append the price div to the left column
   var price_div = $('<div class=price></div>')
   $(".leftCol").append(price_div);
-  
+
   // Prepare variables needed for API query
   var pk = "GATHPRICE";
   var url = "http://partner.tcgplayer.com/x3/phl.asmx/p?pk=" + pk + "&s=" + set + "&p=" + name;
-  
+
   // Query TCGplayer's Hi-Mid-Low API
   $.get( url, handleAPIResult ).fail( function() {
     // If failed, try again, but without Set name (gives average for all sets)
@@ -121,8 +118,10 @@ function handleAPIResult( xml ) {
     '</div>' +
     '<div class="foilavgprice"><a href="' + storelink + '">Foil M: ' + foilavgprice + '</a></div>'
   );
-  // Fix CSS for split cards and double-sided cards
-  if ( two_cards ) { splitCSS() };
+
+  // Set the widths for the price elements based on the price div
+  stylePrices();
+
   // Add store link
   // $('.leftCol').append(
   //   '<div id="storelink"><a href="' + storelink +'">Buy ' + name + '</div></a>'
@@ -139,7 +138,20 @@ function reportAllSets( xml ) {
 };
 
 function splitCSS() {
-  $(".hiprice").css("width", 107);
-  $(".avgprice").css("width", 106);
-  $(".lowprice").css("width", 107);
+  $('.hiprice').css('width', 107);
+  $('.avgprice').css('width', 106);
+  $('.lowprice').css('width', 107);
+}
+
+function stylePrices() {
+  var width = $('.price').width() / 3
+  var fl = Math.floor(width)
+  var cl = Math.ceil(width)
+  var rnd = Math.round(width)
+
+  $('.hiprice').css('width', rnd);
+  $('.lowprice').css('width', rnd);
+
+  if (rnd == cl) { $('.avgprice').css('width', fl) };
+  if (rnd == fl) { $('.avgprice').css('width', cl) };
 }

@@ -1,6 +1,7 @@
 TODO:
 
- v fix split card bug 
+ v fix split card bug
  v modify 'why are the prices in italics' text to not mention promo or masters edition, and just explicitly pull the set name
  v fix styling on split cards / double sided cards
+ v improve price styling to be a function of the table width, not hardcoded
  - add icon popup with store prices

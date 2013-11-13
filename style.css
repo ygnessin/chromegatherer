@@ -11,21 +11,21 @@
 
 .hiprice {
   background-color: #D9FCD1;
-  width: 76px;
+  /*width: 76px;*/
   /* width: 107 px*/
   float: left;
 }
 
 .avgprice {
   background-color: #D1DFFC;
-  width: 77px;
+  /*width: 77px;*/
   /* width: 106 px*/
   float: left;
 }
 
 .lowprice {
   background-color: #FCD1D1;
-  width: 76px;
+  /*width: 76px;*/
   /* width: 107 px*/
   float: right;
 }
