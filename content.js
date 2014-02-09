@@ -22,9 +22,10 @@ $(document).ready(function() {
     second_name = $.trim(second_name.text());
   }
 
-  name = $.trim(name.text());
+  // trim spaces and handle AE characters
+  name = escape($.trim(name.text())).replace('%C6', 'AE');
   set = $.trim(set.text());
-
+  
   var split_name_1 = name + '+%2f%2f+' + second_name
   var split_name_2 = second_name + '+%2f%2f+' + name
 
@@ -64,7 +65,7 @@ $(document).ready(function() {
   // Prepare variables needed for API query
   var pk = "GATHPRICE";
   var url = "http://partner.tcgplayer.com/x3/phl.asmx/p?pk=" + pk + "&s=" + set + "&p=" + name;
-
+  
   // Query TCGplayer's Hi-Mid-Low API
   $.get( url, handleAPIResult ).fail( function() {
     // If failed, try again, but without Set name (gives average for all sets)
