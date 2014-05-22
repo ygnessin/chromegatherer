@@ -48,7 +48,8 @@ $(document).ready(function() {
   set_map['Magic: The Gathering-Commander'] = 'Commander';
   set_map['Commander 2013 Edition'] = 'Commander 2013';
   set_map['Ravnica: City of Guilds'] = 'Ravnica';
-  set_map['Time Spiral "Timeshifted"'] = 'Time Spiral';
+  set_map['Time Spiral "Timeshifted"'] = 'Timeshifted';
+  set_map['Promo set for Gatherer'] = 'Media Promos';
 
   if (set_map[set] != undefined) { set = set_map[set] };
 
