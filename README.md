@@ -6,4 +6,9 @@ MTG Price Gatherer is an extension for Google Chrome that populates MTG card pri
 Contributing
 ============
 
-chromegatherer is open source, and contributions are welcome! To contribute, please fork the repo, make your changes, then open a Pull Request against this repository. I will get to it as soon as I can!
+chromegatherer is free and open source, and contributions are welcome! To contribute, please fork the repo, make your changes, then open a Pull Request against this repository. I will get to it as soon as I can!
+
+License
+=======
+
+chromegatherer is released and distributed under the MIT license.

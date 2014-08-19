@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "MTG Price Gatherer",
-  "description": "Adds Magic: the Gathering card prices to Wizards' Gatherer page.",
+  "description": "Adds Magic the Gathering card prices to Wizards' Gatherer page.",
   "version": "1.0.8",
 
   "permissions": [
