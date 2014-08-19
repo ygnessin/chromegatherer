@@ -156,4 +156,7 @@ function stylePrices() {
 
   if (rnd == cl) { $('.avgprice').css('width', fl) };
   if (rnd == fl) { $('.avgprice').css('width', cl) };
+  
+  // The new Gatherer layout has weird font color handling, so we need to do this here
+  $('.price a').css('color', 'black');
 }

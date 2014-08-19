@@ -45,18 +45,22 @@
 #footnote {
   margin-top: 10px;
   font-size: 10px;
-  color: blue;
+  color: rgb(100, 120, 255);
 }
 
 #footnote:hover {
   cursor: pointer;
 }
 
-.price a {
+.price a:link {
   color: black;
 }
 
 .price a:visited {
+  color: black;
+}
+
+.contentcontainer a:link {
   color: black;
 }
 
