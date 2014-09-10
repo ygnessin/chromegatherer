@@ -10,5 +10,8 @@ TODO:
  - add euro prices from this api: https://www.mkmapi.eu/ws/documentation (make an account to get an API key)
  - add paypal donations functionality
  - add icon popup with store prices
- - fix new gatherer style
+ v fix new gatherer style
  v make OSS
+ v fix conspiracy
+ v fix duel decks
+ - prices on search results page

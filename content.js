@@ -45,13 +45,15 @@ $(document).ready(function() {
   set_map['Ninth Edition'] = '9th Edition';
   set_map['Tenth Edition'] = '10th Edition';
   set_map['Planechase 2012 Edition'] = 'Planechase 2012';
-  set_map['Magic: The Gathering-Commander'] = 'Commander';
   set_map['Commander 2013 Edition'] = 'Commander 2013';
   set_map['Ravnica: City of Guilds'] = 'Ravnica';
   set_map['Time Spiral "Timeshifted"'] = 'Timeshifted';
   set_map['Promo set for Gatherer'] = 'Media Promos';
 
   if (set_map[set] != undefined) { set = set_map[set] };
+  
+  set = set.replace(/Magic: The Gathering\b\S\b/, '');
+  set = set.replace(' vs. ', ' vs ');
 
   m = set.match(/Magic 20(\d\d)/);
   if ( m != null ) {
@@ -66,7 +68,7 @@ $(document).ready(function() {
   // Prepare variables needed for API query
   var pk = "GATHPRICE";
   var url = "http://partner.tcgplayer.com/x3/phl.asmx/p?pk=" + pk + "&s=" + set + "&p=" + name;
-  
+
   // Query TCGplayer's Hi-Mid-Low API
   $.get( url, handleAPIResult ).fail( function() {
     // If failed, try again, but without Set name (gives average for all sets)
