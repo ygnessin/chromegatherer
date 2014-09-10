@@ -3,7 +3,7 @@
 
   "name": "MTG Price Gatherer",
   "description": "Adds Magic the Gathering card prices to Wizards' Gatherer page.",
-  "version": "1.1.0",
+  "version": "1.1.1",
 
   "permissions": [
     "tabs",
