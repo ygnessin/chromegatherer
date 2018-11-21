@@ -56,13 +56,16 @@ $(document).ready(function() {
   if (SET_MAP[set] != undefined) { set = SET_MAP[set] };
 
   set = set.replace(/Magic: The Gathering\b\S\b/, '');
-  set = set.replace(' vs. ', ' vs ');
 
   m = set.match(/Magic 20(\d\d)/);
   if (m != null) {
     year = m[1];
     if (typeof(year) == "string") { set = "Magic 20" + year + " (M" + year + ")";};
   };
+
+  if (set.includes('Duel Decks Anthology')) {
+    set = 'Duel Decks: Anthology';
+  }
 
   // Append the price div to the left column
   var price_div = $('<div class=price></div>')
