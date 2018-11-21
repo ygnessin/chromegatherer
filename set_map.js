@@ -14,5 +14,10 @@ const SET_MAP = {
   'Modern Masters 2017 Edition': 'Modern Masters 2017',
   'Modern Masters 2015 Edition': 'Modern Masters 2015',
   'Game Night': 'Magic Game Night',
-  'Global Series: Jiang Yanggu and Mu Yanling': 'Global Series Jiang Yanggu %26 Mu Yanling'
+  'Global Series: Jiang Yanggu and Mu Yanling': 'Global Series Jiang Yanggu %26 Mu Yanling',
+  'Guild Kit: Selesnya': 'Guilds of Ravnica: Guild Kits',
+  'Guild Kit: Izzet': 'Guilds of Ravnica: Guild Kits',
+  'Guild Kit: Dimir': 'Guilds of Ravnica: Guild Kits',
+  'Guild Kit: Boros': 'Guilds of Ravnica: Guild Kits',
+  'Guild Kit: Golgari': 'Guilds of Ravnica: Guild Kits',
 };
