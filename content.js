@@ -83,21 +83,21 @@ $(document).ready(function() {
   $(".leftCol").append(price_div);
 
   // Prepare variables needed for API query
-  var url = generateTCGPlayerUrl(set, name);
+  var url = apiUrl(set, name);
 
   // Query TCGplayer's Hi-Mid-Low API
   $.get(url).done(function(xml) {
     handleApiResponse(xml, displayPrices, function() {
       // If failed, try again, but without Set name (gives average for all sets)
-      url = generateTCGPlayerUrl("", name);
+      url = apiUrl("", name);
       $.get(url).done(function(xml) {
         handleApiResponse(xml, displayAvgPricesForAllSets, function() {
           // If failed, maybe it's a Split card
-          url = generateTCGPlayerUrl(set, split_name_1);
+          url = apiUrl(set, split_name_1);
           $.get(url).done(function(xml) {
             handleApiResponse(xml, displayPrices, function() {
               // If failed, maybe the split card names are backwards
-              url = generateTCGPlayerUrl(set, split_name_2);
+              url = apiUrl(set, split_name_2);
               $.get(url).done(function(xml) {
                 handleApiResponse(xml, displayPrices, function() {
                   // If still failed, give up and print an error
@@ -125,7 +125,7 @@ $(document).ready(function() {
 
 })
 
-function generateTCGPlayerUrl(set, cardName) {
+function apiUrl(set, cardName) {
   return "http://partner.tcgplayer.com/x3/phl.asmx/p?pk=GATHPRICE&s=" + set + "&p=" + cardName;
 }
 
