@@ -13,17 +13,32 @@ $(document).ready(function() {
 
     // Set up Split card names in case this is a Split card
     second_name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl08_nameRow > .value");
-    // Sometimes split cards use ct109 and ct110
+
+    // Sometimes split cards use ctl09 and ctl10
     if (name.text().length == 0) {
       name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl09_nameRow > .value");
       set = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl09_setRow > .value");
       second_name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl10_nameRow > .value");
     }
-    second_name = $.trim(second_name.text());
+
+    // Sometimes split cards use ctl02 and ctl03
+    if (name.text().length == 0) {
+      name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl02_nameRow > .value");
+      set = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl02_setRow > .value");
+      second_name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl03_nameRow > .value");
+    }
+
+    // Sometimes split cards use ctl03 and ctl04
+    if (name.text().length == 0) {
+      name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl03_nameRow > .value");
+      set = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl03_setRow > .value");
+      second_name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl04_nameRow > .value");
+    }
   }
 
   // trim spaces and handle AE characters
   name = escape($.trim(name.text())).replace('%C6', 'AE');
+  second_name = escape($.trim(second_name.text())).replace('%C6', 'AE');
   set = $.trim(set.text());
 
   var split_name_1 = name + '+%2f%2f+' + second_name
