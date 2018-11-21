@@ -86,37 +86,29 @@ $(document).ready(function() {
   var url = generateTCGPlayerUrl(set, name);
 
   // Query TCGplayer's Hi-Mid-Low API
-  $.get(url, function(xml) {
-    if ($(xml).find("error").text() == "") {
-      displayPrices(xml);
-    } else {
+  $.get(url).done(function(xml) {
+    handleApiResponse(xml, displayPrices, function() {
       // If failed, try again, but without Set name (gives average for all sets)
       url = generateTCGPlayerUrl("", name);
-      $.get(url, function(xml) {
-        if ($(xml).find("error").text() == "") {
-          displayAvgPricesForAllSets(xml);
-        } else {
+      $.get(url).done(function(xml) {
+        handleApiResponse(xml, displayAvgPricesForAllSets, function() {
           // If failed, maybe it's a Split card
           url = generateTCGPlayerUrl(set, split_name_1);
-          $.get(url, function(xml) {
-            if ($(xml).find("error").text() == "") {
-              displayPrices(xml);
-            } else {
+          $.get(url).done(function(xml) {
+            handleApiResponse(xml, displayPrices, function() {
               // If failed, maybe the split card names are backwards
               url = generateTCGPlayerUrl(set, split_name_2);
-              $.get(url, function(xml) {
-                if ($(xml).find("error").text() == "") {
-                  displayPrices(xml);
-                } else {
+              $.get(url).done(function(xml) {
+                handleApiResponse(xml, displayPrices, function() {
                   // If still failed, give up and print an error
                   $(".leftCol").append('<div id="error">Sorry, an error occured fetching price data</div>');
-                }
+                });
               });
-            }
+            });
           });
-        }
+        });
       });
-    }
+    });
   });
 
   // send message to the extension containing the card ID and Name
@@ -135,6 +127,14 @@ $(document).ready(function() {
 
 function generateTCGPlayerUrl(set, cardName) {
   return "http://partner.tcgplayer.com/x3/phl.asmx/p?pk=GATHPRICE&s=" + set + "&p=" + cardName;
+}
+
+function handleApiResponse(xml, successFn, failFn) {
+  if ($(xml).find("error").text() == "") {
+    successFn(xml);
+  } else {
+    failFn();
+  }
 }
 
 function displayPrices(xml) {
