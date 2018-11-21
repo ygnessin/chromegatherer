@@ -7,6 +7,7 @@
   text-align: center;
   font-size: 14px;
   font-weight: bold;
+  margin-top: 18px;
 }
 
 .hiprice {
@@ -27,12 +28,11 @@
   background-color: #FCD1D1;
   /*width: 76px;*/
   /* width: 107 px*/
-  float: right;
+  float: left;
 }
 
 .foilavgprice {
   background-color: #F8F59A;
-  margin-top: 18px;
 }
 
 #error {

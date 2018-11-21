@@ -114,6 +114,8 @@ $(document).ready(function() {
 
 })
 
+$(window).resize(stylePrices);
+
 function apiUrl(set, cardName) {
   return "http://partner.tcgplayer.com/x3/phl.asmx/p?pk=GATHPRICE&s=" + set + "&p=" + cardName;
 }
