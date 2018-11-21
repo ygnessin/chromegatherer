@@ -53,21 +53,7 @@ $(document).ready(function() {
   var foilavgprice = null;
   var storelink = null;
 
-  // Transform bad set names into applicable set names
-  var set_map = {};
-  set_map['Limited Edition Alpha'] = 'Alpha Edition';
-  set_map['Limited Edition Beta'] = 'Beta Edition';
-  set_map['Seventh Edition'] = '7th Edition';
-  set_map['Eighth Edition'] = '8th Edition';
-  set_map['Ninth Edition'] = '9th Edition';
-  set_map['Tenth Edition'] = '10th Edition';
-  set_map['Planechase 2012 Edition'] = 'Planechase 2012';
-  set_map['Commander 2013 Edition'] = 'Commander 2013';
-  set_map['Ravnica: City of Guilds'] = 'Ravnica';
-  set_map['Time Spiral "Timeshifted"'] = 'Timeshifted';
-  set_map['Promo set for Gatherer'] = 'Media Promos';
-
-  if (set_map[set] != undefined) { set = set_map[set] };
+  if (SET_MAP[set] != undefined) { set = SET_MAP[set] };
 
   set = set.replace(/Magic: The Gathering\b\S\b/, '');
   set = set.replace(' vs. ', ' vs ');

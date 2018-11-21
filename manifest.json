@@ -31,7 +31,7 @@
     {
       "matches": ["http://gatherer.wizards.com/Pages/Card/*"],
       "css": ["style.css"],
-      "js": ["jquery.js", "content.js"]
+      "js": ["jquery.js", "set_map.js", "content.js"]
     }
   ]
 }
