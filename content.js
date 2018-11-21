@@ -133,9 +133,9 @@ function displayPrices(xml) {
   foilavgprice = "$" + $(xml).find("foilavgprice").text();
   storelink = $(xml).find("link").text();
 
-  if (hiprice == "$0") { hiprice = "Unavailable" };
-  if (lowprice == "$0") { lowprice = "Unavailable" };
-  if (avgprice == "$0") { avgprice = "Unavailable" };
+  if (hiprice == "$0") { hiprice = "N/A" };
+  if (lowprice == "$0") { lowprice = "N/A" };
+  if (avgprice == "$0") { avgprice = "N/A" };
   if (foilavgprice == "$0") { foilavgprice = "N/A" };
 
   // Add the price data to the price div on the page
