@@ -1,17 +1,8 @@
 TODO:
 
- v fix split card bug
- v modify 'why are the prices in italics' text to not mention promo or masters edition, and just explicitly pull the set name
- v fix styling on split cards / double sided cards
- v improve price styling to be a function of the table width, not hardcoded
- v fix AE bug
- v fix Portal Three Kingdoms
- v fix 'Time Spiral "Timeshifted"' bug
  - add euro prices from this api: https://www.mkmapi.eu/ws/documentation (make an account to get an API key)
  - add paypal donations functionality
  - add icon popup with store prices
- v fix new gatherer style
- v make OSS
- v fix conspiracy
- v fix duel decks
  - prices on search results page
+ - fix style on small screens
+ - fix all the broken sets
