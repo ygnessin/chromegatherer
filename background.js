@@ -18,9 +18,9 @@ chrome.tabs.onUpdated.addListener(checkForValidUrl);
 // Listen for messages from Content containing cardinfo
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    if (request.cardinfo)
-    {
+    if (request.cardinfo) {
       name = request.cardinfo.cardname;
       set  = request.cardinfo.cardset;
     }
+    // Do cool stuff here?
 });

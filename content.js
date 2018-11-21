@@ -6,7 +6,7 @@ $(document).ready(function() {
   var set = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_setRow > .value");
 
   // Handle double-sided cards and split cards
-  var second_name = '';
+  var second_name;
   if (name.text().length == 0) {
     name = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl07_nameRow > .value");
     set = $("#ctl00_ctl00_ctl00_MainContent_SubContent_SubContent_ctl07_setRow > .value");
@@ -37,9 +37,11 @@ $(document).ready(function() {
   }
 
   // trim spaces and handle AE characters
-  name = escape($.trim(name.text())).replace('%C6', 'AE');
-  second_name = escape($.trim(second_name.text())).replace('%C6', 'AE');
   set = $.trim(set.text());
+  name = escape($.trim(name.text())).replace('%C6', 'AE');
+  if (second_name) {
+    second_name = escape($.trim(second_name.text())).replace('%C6', 'AE');
+  }
 
   var split_name_1 = name + '+%2f%2f+' + second_name
   var split_name_2 = second_name + '+%2f%2f+' + name
