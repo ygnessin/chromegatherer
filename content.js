@@ -84,21 +84,37 @@ $(document).ready(function() {
   var url = generateTCGPlayerUrl(set, name);
 
   // Query TCGplayer's Hi-Mid-Low API
-  $.get(url, handleAPIResult).fail( function() {
-    // If failed, try again, but without Set name (gives average for all sets)
-    url = generateTCGPlayerUrl("", name);
-    $.get(url, reportAllSets).fail( function() {
-      // If failed, maybe it's a Split card
-      url = generateTCGPlayerUrl(set, split_name_1);
-      $.get(url, handleAPIResult).fail( function() {
-        // If failed, maybe the split card names are backwards
-        url = generateTCGPlayerUrl(set, split_name_2);
-        $.get(url, handleAPIResult).fail( function() {
-          // If still failed, give up and print an error
-          $(".leftCol").append('<div id="error">Sorry, an error occured fetching price data</div>');
-        });
+  $.get(url, function(xml) {
+    if ($(xml).find("error").text() == "") {
+      displayPrices(xml);
+    } else {
+      // If failed, try again, but without Set name (gives average for all sets)
+      url = generateTCGPlayerUrl("", name);
+      $.get(url, function(xml) {
+        if ($(xml).find("error").text() == "") {
+          displayAvgPricesForAllSets(xml);
+        } else {
+          // If failed, maybe it's a Split card
+          url = generateTCGPlayerUrl(set, split_name_1);
+          $.get(url, function(xml) {
+            if ($(xml).find("error").text() == "") {
+              displayPrices(xml);
+            } else {
+              // If failed, maybe the split card names are backwards
+              url = generateTCGPlayerUrl(set, split_name_2);
+              $.get(url, function(xml) {
+                if ($(xml).find("error").text() == "") {
+                  displayPrices(xml);
+                } else {
+                  // If still failed, give up and print an error
+                  $(".leftCol").append('<div id="error">Sorry, an error occured fetching price data</div>');
+                }
+              });
+            }
+          });
+        }
       });
-    });
+    }
   });
 
   // send message to the extension containing the card ID and Name
@@ -119,7 +135,7 @@ function generateTCGPlayerUrl(set, cardName) {
   return "http://partner.tcgplayer.com/x3/phl.asmx/p?pk=GATHPRICE&s=" + set + "&p=" + cardName;
 }
 
-function handleAPIResult(xml) {
+function displayPrices(xml) {
   hiprice = "$" + $(xml).find("hiprice").text();
   lowprice = "$" + $(xml).find("lowprice").text();
   avgprice = "$" + $(xml).find("avgprice").text();
@@ -145,8 +161,8 @@ function handleAPIResult(xml) {
   stylePrices();
 }
 
-function reportAllSets(xml) {
-  handleAPIResult(xml);
+function displayAvgPricesForAllSets(xml) {
+  displayPrices(xml);
   $('.price').css('font-style', 'italic')
   var footnote_msg = 'These prices are aggregated over all available printings of this card, because the printing you selected does not have any available pricing data.';
   var footnote = $('<div id="footnote" title="' + footnote_msg + '">Why are the prices in italics?</div>');
